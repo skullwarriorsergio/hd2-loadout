@@ -209,7 +209,7 @@ h2,h3{text-wrap:balance}
 
 /* roll */
 .seg{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-radius:12px;padding:3px;gap:3px}
-.seg button{min-height:40px;border-radius:9px;font:700 15px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.seg button{display:flex;align-items:center;justify-content:center;text-align:center;min-height:40px;border-radius:9px;font:700 15px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .seg button[aria-pressed="true"]{background:var(--k);color:var(--surface)}
 .opts{display:grid;gap:2px;margin-top:10px;background:var(--surface);border-radius:14px;padding:4px 14px}
 .opt{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:46px;font-size:14.5px}
@@ -255,7 +255,7 @@ h2,h3{text-wrap:balance}
 /* in-view tabs */
 .vtabs{display:flex;gap:4px;margin:14px 0 4px;background:var(--surface);border-radius:12px;padding:3px;overflow-x:auto;scrollbar-width:none}
 .vtabs::-webkit-scrollbar{display:none}
-.vtab{flex:1 0 auto;min-height:40px;padding:0 12px;border-radius:9px;font:700 15px/1 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.vtab{flex:1 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:5px;text-align:center;min-height:40px;padding:0 12px;border-radius:9px;font:700 15px/1 var(--display);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .vtab i{font:600 11px/1 var(--mono);font-style:normal;letter-spacing:0;opacity:.8}
 .vtab[aria-selected="true"]{background:var(--k,var(--ink));color:var(--surface)}
 /* randomizer call to action */
@@ -846,14 +846,14 @@ function renderRoll() {
       ${sw('gear', 'Roll weapons and armor too', 'Primary, secondary, throwable, armor set')}
       ${isF ? sw('pen', 'Respect the variant’s pen', 'Skip primaries marked under-AP') : ''}
       ${ctx === 'automatons' ? sw('mf', 'Megafactory (heavy AA)', 'No eagles: the eagle slot takes a 2nd orbital') : ''}</div>
-    <button class="rollbtn" id="roll">Roll <span class="code">↑ → ↓ ↓ →</span></button>
+    <button class="rollbtn" id="rollBtn">Roll <span class="code">↑ → ↓ ↓ →</span></button>
     <div id="result">${resultHTML()}</div>
     ${(S.hist || []).length > 1 ? `<div class="eyebrow">Recent rolls</div><ul class="hist">${S.hist.slice(1).map(histRow).join('')}</ul>` : ''}`;
   view.querySelectorAll('[data-ctx]').forEach(b => b.onclick = () => { R.ctx = b.dataset.ctx; R.pool = 'fav'; save(); renderRoll(); });
   view.querySelectorAll('[data-rsub]').forEach(b => b.onclick = () => { S.sub[ctx] = b.dataset.rsub; save(); renderRoll(); });
   view.querySelectorAll('[data-pool]').forEach(b => b.onclick = () => { R.pool = b.dataset.pool; save(); renderRoll(); });
   view.querySelectorAll('[data-opt]').forEach(b => b.onclick = () => { R[b.dataset.opt] = !R[b.dataset.opt]; save(); renderRoll(); });
-  $('#roll').onclick = () => { doRoll(false); renderRoll(); };
+  $('#rollBtn').onclick = () => { doRoll(false); renderRoll(); };
   bindResult();
 }
 function resultHTML() {
